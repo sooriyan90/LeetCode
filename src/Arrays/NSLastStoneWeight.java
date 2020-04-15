@@ -22,7 +22,12 @@ Note:
 1 <= stones[i] <= 1000*/
 
 public class NSLastStoneWeight {
-	
+
+    /**SOLUTION 1
+     * ** Time Complexity - O(n log n)
+     * @param stones
+     * @return
+     */
 	public int lastStoneWeight(int[] stones) {
 		//constructor with comparator parameter needs the initial size to be specified
         PriorityQueue<Integer> pq = new PriorityQueue<>(stones.length, Collections.reverseOrder());
@@ -42,6 +47,20 @@ public class NSLastStoneWeight {
         }
         
         return (pq.size() == 1)?pq.poll():0;
+    }
+
+    /** SOLUTION 2
+     * Time Complexity - O(n^2 log n )
+     * **/
+    public int lastStoneWeightWithSorting(int[] stones) {
+        int n = stones.length - 1;
+        for(int i = n; i > 0; i--){
+            Arrays.sort(stones);
+            stones[n-1] = stones[n] - stones[n-1];
+            n = n-1;
+        }
+
+        return stones[0];
     }
 	public LastStoneWeight() {
 		// TODO Auto-generated constructor stub
