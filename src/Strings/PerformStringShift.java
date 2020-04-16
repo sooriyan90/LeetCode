@@ -39,13 +39,15 @@
  *
  * **/
 
+package Strings;
+
 public class PerformStringShift {
 
     /** SOLUTION 1
      *  Time Complexity - O(m * n) as there
      *  We are constantly changing the string on every iteration
      * **/
-    public String stringShift(String s, int[][] shift) {
+    public static String stringShift(String s, int[][] shift) {
         char[] sChar = s.toCharArray();
         for(int i = 0; i < shift.length; i++){
             int dir = shift[i][0];
@@ -76,7 +78,7 @@ public class PerformStringShift {
         return res;
     }
 
-    public char[] rotateRight(char[] chars, int amt){
+    public static char[] rotateRight(char[] chars, int amt){
         char[] res = new char[chars.length];
         if(amt == chars.length)
             return chars;
@@ -99,7 +101,8 @@ public class PerformStringShift {
      * We iterate over the shift array and find a final position of start index
      * Rotate the string or char array of string by the start index value to the right
      * **/
-    public String stringShift(String s, int[][] shift) {
+    public static String stringShiftOnce(String s, int[][] shift) {
+        // the 0th index letter will be shifted to this index(startIndex) and all subsequent letters will be shifted by this number
         int startIndex = 0;
         for(int i = 0; i < shift.length; i++){
             int dir = shift[i][0];
@@ -111,11 +114,11 @@ public class PerformStringShift {
             else
                 startIndex = startIndex < 0 ? s.length() + startIndex : startIndex;
         }
-        char[] sChar = rotateRight(s.toCharArray(), startIndex);
+        char[] sChar = rotate(s.toCharArray(), startIndex);
         return String.valueOf(sChar);
     }
 
-    public char[] rotateRight(char[] chars, int index){
+    public static char[] rotate(char[] chars, int index){
         char[] res = new char[chars.length];
         if(index == chars.length)
             return chars;
@@ -131,5 +134,13 @@ public class PerformStringShift {
         }
 
         return res;
+    }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        System.out.println(stringShift("abc", new int[][]{{0,1}, {1,2}}));
+        System.out.println(stringShift("abcdefg", new int[][]{{1,1},{1,1},{0,2},{1,3}}));
+        System.out.println(stringShiftOnce("abc", new int[][]{{0,1}, {1,2}}));
+        System.out.println(stringShiftOnce("abcdefg", new int[][]{{1,1},{1,1},{0,2},{1,3}}));
     }
 }
