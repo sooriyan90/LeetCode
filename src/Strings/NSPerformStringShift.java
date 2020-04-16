@@ -38,7 +38,7 @@ shift[i].length == 2
 0 <= shift[i][0] <= 1
 0 <= shift[i][1] <= 100*/
 
- /* 
+/* 
   * @author narayanan.sekhar
   */
 public class NSPerformStringShift {
@@ -135,4 +135,11 @@ public class NSPerformStringShift {
         return rtn;
     }
 
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		NSPerformStringShift nSPerformStringShift = new NSPerformStringShift();
+		String s = "abcdefg";
+		int[][] shift = {{1,1},{1,1},{0,2},{1,3}};
+		System.out.println(nSPerformStringShift.stringShiftTwo(s,shift));
+	}
 }
