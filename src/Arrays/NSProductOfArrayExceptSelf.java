@@ -13,8 +13,9 @@ Note: Please solve it without division and in O(n).
 Follow up:
 Could you solve it with constant space complexity? (The output array does not count as extra space for the purpose of space complexity analysis.)*/
 
-class NSProductOfArrayExceptSelf {
-    public int[] productExceptSelf(int[] nums) {
+public class NSProductOfArrayExceptSelf {
+    /**NS**/
+    public static int[] productExceptSelfConstantSpace(int[] nums) {
         int[] op = new int[nums.length];
         int temp = 1;
         for(int i = nums.length - 1; i > 0; i--){
@@ -29,5 +30,47 @@ class NSProductOfArrayExceptSelf {
         }
         op[nums.length - 1] = temp*nums[nums.length - 2];
         return op;
+    }
+
+    /** VM
+     *  Time complexity is O(N)
+     *  Space complexity is O(N)
+     *  Idea is to build products which are to the left and right of current index
+     *  Finally multiple the left and right products for each index
+     * **/
+    public static int[] productExceptSelfWithLeftAndRight(int[] nums) {
+        if(nums == null)
+            return null;
+        int[] res = new int[nums.length];
+        if(nums.length == 0)
+            return res;
+        int[] lProd = new int[nums.length];
+        int[] rProd = new int[nums.length];
+        lProd[0] = 1;
+        // building the left products for each index
+        for(int i = 1; i < nums.length; i++){
+            lProd[i] = lProd[i-1] * nums[i-1];
+        }
+        rProd[nums.length - 1] = 1;
+        // building the right products for each index
+        for(int i = nums.length - 2; i >= 0 ; i--){
+            rProd[i] = rProd[i+1] * nums[i+1];
+        }
+        // build the array with left and right products for each index
+        for(int i = 0 ; i < nums.length; i++){
+            res[i] = lProd[i] * rProd[i];
+        }
+
+        return res;
+    }
+
+    public static void main(String[] args){
+        int[] res = productExceptSelfConstantSpace(new int[]{1,2,3,4});
+        //int[] res = productExceptSelfWithLeftAndRight(new int[4]{1,2,3,4});
+
+        for(int i : res){
+            System.out.println(i);
+        }
+
     }
 }

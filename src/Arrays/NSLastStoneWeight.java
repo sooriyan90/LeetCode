@@ -21,6 +21,12 @@ Note:
 1 <= stones.length <= 30
 1 <= stones[i] <= 1000*/
 
+package Arrays;
+
+import java.util.Collections;
+import java.util.PriorityQueue;
+import java.util.Arrays;
+
 public class NSLastStoneWeight {
 
     /**SOLUTION 1
@@ -28,7 +34,7 @@ public class NSLastStoneWeight {
      * @param stones
      * @return
      */
-	public int lastStoneWeight(int[] stones) {
+	public static int lastStoneWeight(int[] stones) {
 		//constructor with comparator parameter needs the initial size to be specified
         PriorityQueue<Integer> pq = new PriorityQueue<>(stones.length, Collections.reverseOrder());
         for(int i = 0; i < stones.length; i++){
@@ -52,7 +58,7 @@ public class NSLastStoneWeight {
     /** SOLUTION 2
      * Time Complexity - O(n^2 log n )
      * **/
-    public int lastStoneWeightWithSorting(int[] stones) {
+    public static int lastStoneWeightWithSorting(int[] stones) {
         int n = stones.length - 1;
         for(int i = n; i > 0; i--){
             Arrays.sort(stones);
@@ -62,8 +68,12 @@ public class NSLastStoneWeight {
 
         return stones[0];
     }
-	public LastStoneWeight() {
-		// TODO Auto-generated constructor stub
-	}
+
+    public static void main(String[] args){
+        System.out.println((lastStoneWeight(new int[]{1,2,7,2,6,8})));
+    }
+//	public LastStoneWeight() {
+//		// TODO Auto-generated constructor stub
+//	}
 
 }
