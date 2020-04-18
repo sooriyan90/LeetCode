@@ -136,6 +136,100 @@ public class PerformStringShift {
         return res;
     }
 
+    //NS
+    //RUN TIME - O(M) + O(N^2) -> O(N^2)
+  	//O(M) - traversing the 2D shift array
+  	//O(N^2) - rotating the string N(length of String) times
+  	//SPACE - O(N)
+  	public static String stringShiftOne(String s, int[][] shift) {
+          int numOfShifts = 0;
+          int strlen = s.length();
+          int shifts = 0;
+          
+          if(s.length() == 1){
+              return s;
+          }
+          //gets the total number of shifts
+          //0 - leftshift -> decrease the count by 1
+          //1 - rightshift -> increase the count by 1
+          for(int i = 0; i < shift.length; i++){
+              if(shift[i][0] == 0){
+                  numOfShifts = numOfShifts - shift[i][1];
+                  System.out.println(numOfShifts);
+              }else{
+                  numOfShifts = numOfShifts + shift[i][1];
+                  System.out.println(numOfShifts);
+              }
+          }
+          
+          char[] strArr = s.toCharArray();
+          
+          if(numOfShifts == 0){
+              return s;
+          }else {
+          		//gets the number of required shifts
+          	    //we need only the required shifts as we are rotating the string
+              shifts = Math.abs(numOfShifts)%strlen;
+              if(numOfShifts > 0){
+                  while(shifts > 0){
+                      char c = strArr[s.length() - 1];
+                      for(int i = s.length() - 2; i >= 0;i--){
+                          strArr[i+1] = strArr[i];
+                      }
+                      strArr[0] = c;
+                      shifts--;
+                  }
+              }else{
+                  while(shifts > 0){
+                      char c = strArr[0];
+                      for(int i = 1; i < s.length();i++){
+                          strArr[i-1] = strArr[i];
+                      }
+                      strArr[s.length() - 1] = c;
+                      shifts--;
+                  }
+              }
+          }
+          
+          return String.valueOf(strArr);
+      }
+  	
+  	//NS
+  	//RUNTIME - O(M) + O(N) -> O(M + N)
+  	//SPACE - O(N)
+  	public static String stringShiftTwo(String s, int[][] shift) {
+          int numOfShifts = 0;
+          int strlen = s.length();
+          int shifts = 0;
+          String rtn = null;
+          StringBuffer sb = new StringBuffer(s);
+          
+          if(s.length() == 1){
+              return s;
+          }
+          
+          for(int i = 0; i < shift.length; i++){
+              if(shift[i][0] == 0){
+                  numOfShifts = numOfShifts - shift[i][1];
+              }else{
+                  numOfShifts = numOfShifts + shift[i][1];
+              }
+          }
+          
+          if(numOfShifts == 0){
+              return s;
+          }else{
+              shifts = Math.abs(numOfShifts)%strlen;
+              if(numOfShifts > 0){
+                  rtn = sb.substring(s.length() - shifts) + sb.substring(0, s.length() - shifts);
+              }else{
+                  rtn = sb.substring(shifts) + sb.substring(0, shifts);
+              }
+          } 
+          
+          return rtn;
+      }
+
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         System.out.println(stringShift("abc", new int[][]{{0,1}, {1,2}}));
