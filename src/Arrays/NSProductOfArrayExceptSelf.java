@@ -15,20 +15,28 @@ Could you solve it with constant space complexity? (The output array does not co
 
 public class NSProductOfArrayExceptSelf {
     /**NS**/
+	// O(N) - Time Complexity
+	// O(N) - Space Complexity
+	//                 0,1,2,3,4 - index 
+	// [1,2,3,4,5] - [ 1,2,6,24, ] - a[]
+	//
+	//                0,1,  2, 3, 4 - index
+	// [1,2,3,4,5] - [120,60,20,5,1] - b[]
+	//
+	// [120,60,40,30,24] - a[i]*b[i+1] - 0<=i<=len-1            
     public static int[] productExceptSelfConstantSpace(int[] nums) {
         int[] op = new int[nums.length];
         int temp = 1;
-        for(int i = nums.length - 1; i > 0; i--){
-            op[i] = temp*nums[i];
-            temp = op[i];
-        }
-        op[0] = op[1];
+        for(int i = nums.length - 1; i >= 1; i--){
+        		op[i-1] = temp*nums[i];
+        		temp = op[i-1];
+    		}
         temp = 1;
-        for(int i = 0; i < nums.length - 2; i++){
+        op[nums.length - 1] = temp;
+        for(int i = 0; i < nums.length - 1; i++){
             temp = temp*nums[i];
-            op[i+1] = temp*op[i+2];
+            op[i+1] = temp*op[i+1];
         }
-        op[nums.length - 1] = temp*nums[nums.length - 2];
         return op;
     }
 
@@ -65,8 +73,8 @@ public class NSProductOfArrayExceptSelf {
     }
 
     public static void main(String[] args){
-        int[] res = productExceptSelfConstantSpace(new int[]{1,2,3,4});
-        //int[] res = productExceptSelfWithLeftAndRight(new int[4]{1,2,3,4});
+        int[] res = productExceptSelfConstantSpace(new int[]{1,2,3,4,5});
+        //int[] res = productExceptSelfWithLeftAndRight(new int[]{1,2,3,4});
 
         for(int i : res){
             System.out.println(i);
